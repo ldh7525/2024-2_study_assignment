@@ -1,0 +1,15 @@
+C:\code\2024-2_study_assignment\Solved\obj\Debug\net8.0\Solved.GeneratedMSBuildEditorConfig.editorconfig
+C:\code\2024-2_study_assignment\Solved\obj\Debug\net8.0\Solved.AssemblyInfoInputs.cache
+C:\code\2024-2_study_assignment\Solved\obj\Debug\net8.0\Solved.AssemblyInfo.cs
+C:\code\2024-2_study_assignment\Solved\obj\Debug\net8.0\Solved.csproj.CoreCompileInputs.cache
+C:\code\2024-2_study_assignment\Solved\obj\Debug\net8.0\Solved.sourcelink.json
+C:\code\2024-2_study_assignment\Solved\bin\Debug\net8.0\Solved.exe
+C:\code\2024-2_study_assignment\Solved\bin\Debug\net8.0\Solved.deps.json
+C:\code\2024-2_study_assignment\Solved\bin\Debug\net8.0\Solved.runtimeconfig.json
+C:\code\2024-2_study_assignment\Solved\bin\Debug\net8.0\Solved.dll
+C:\code\2024-2_study_assignment\Solved\bin\Debug\net8.0\Solved.pdb
+C:\code\2024-2_study_assignment\Solved\obj\Debug\net8.0\Solved.dll
+C:\code\2024-2_study_assignment\Solved\obj\Debug\net8.0\refint\Solved.dll
+C:\code\2024-2_study_assignment\Solved\obj\Debug\net8.0\Solved.pdb
+C:\code\2024-2_study_assignment\Solved\obj\Debug\net8.0\Solved.genruntimeconfig.cache
+C:\code\2024-2_study_assignment\Solved\obj\Debug\net8.0\ref\Solved.dll
