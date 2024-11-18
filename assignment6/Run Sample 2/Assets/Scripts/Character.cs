@@ -7,7 +7,8 @@ public class Character : MonoBehaviour
     const float CharacterJumpPower = 7f;
     const int MaxJump = 2;
     int RemainJump = 0;
-    GameManager GM;
+    [SerializeField] GameManager GM;
+    [SerializeField] UIManager MyUIManager;
 
     void Awake()
     {
@@ -50,6 +51,7 @@ public class Character : MonoBehaviour
         if (col.gameObject.tag == "Point")
         {
             GM.NowScore++;
+            MyUIManager.DisplayScore(GM.NowScore);
             Destroy(col.gameObject);
         }
     }

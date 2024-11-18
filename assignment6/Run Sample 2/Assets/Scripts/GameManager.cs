@@ -61,13 +61,6 @@ public class GameManager : MonoBehaviour
         MyUIManager.RestartButton.SetActive(true); 
     }
 
-    public void GetPoint(int point)
-    {
-        // point만큼 점수를 증가시키고 UI에 표시한다.
-        NowScore += point; 
-        MyUIManager.DisplayScore(NowScore); 
-    }
-
     // Restart the game
     public void RestartGame()
     {
