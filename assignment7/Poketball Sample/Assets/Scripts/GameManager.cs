@@ -74,11 +74,15 @@ public class GameManager : MonoBehaviour
         {
             for (int col = 0; col <= row; col++)
             {
-                Vector3 position = StartPosition + new Vector3(col * (BallRadius * 2 + RowSpacing) - row * (BallRadius + RowSpacing) / 2, 0, -row * (BallRadius * 2 + RowSpacing));
-                Quaternion rotation = StartRotation;
+                //x좌 z좌 설정
+                float xOffset = col * (BallRadius * 2 + RowSpacing) - row * (BallRadius + RowSpacing);
+                float zOffset = -row * ((BallRadius + RowSpacing/2)* Mathf.Sqrt(3));
+
+                // 공의 위치 계산
+                Vector3 position = StartPosition + new Vector3(xOffset, 0, zOffset); Quaternion rotation = StartRotation;
                 GameObject ball = Instantiate(BallPrefab, position, rotation);
-                ball.name = row * (row + 1) / 2 + col + "";
-                ball.GetComponent<MeshRenderer>().material = Resources.Load<Material>($"Materials/ball_{row + 1}");
+                ball.name = (row * (row + 1) / 2 + col + 1).ToString();
+                ball.GetComponent<MeshRenderer>().material = Resources.Load<Material>($"Materials/ball_{row * (row + 1) / 2 + col + 1}");
             }
         }
     }
