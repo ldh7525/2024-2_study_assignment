@@ -37,33 +37,69 @@ public class GameManager : MonoBehaviour
     void InitializeBoard()
     {
         // 8x8로 타일들을 배치
-        // TilePrefab을 TileParent의 자식으로 생성하고, 배치함
-        // Tiles를 채움
-        // --- TODO ---
-        
-        // ------
+        for (int x = 0; x < Utils.FieldWidth; x++)
+        {
+            for (int y = 0; y < Utils.FieldHeight; y++)
+            {
+                // TilePrefab을 TileParent의 자식으로 생성
+                GameObject tileObj = Instantiate(TilePrefab, TileParent);
 
-        PlacePieces(1);
-        PlacePieces(-1);
+                // 타일 초기화
+                Tile tile = tileObj.GetComponent<Tile>();
+                tile.Set((x, y)); // 타일 위치 설정
+
+                // Tiles 배열에 타일 저장
+                Tiles[x, y] = tile; 
+
+                // 타일을 실제 월드 좌표로 이동
+                tileObj.transform.position = Utils.ToRealPos((x, y));
+            }
+        }
+
+        // 흰색과 검은색 말 배치
+        PlacePieces(1);  // 백
+        PlacePieces(-1); // 흑
     }
 
     void PlacePieces(int direction)
     {
-        // PlacePiece를 사용하여 Piece들을 적절한 모양으로 배치
-        // --- TODO ---
-        
-        // ------
+        // direction이 1이면 백, -1이면 흑
+        int pawnRow = (direction == 1) ? 1 : 6;   // 폰의 배치 행
+        int mainRow = (direction == 1) ? 0 : 7;   // 주요 말의 배치 행
+
+        // 폰 배치
+        for (int x = 0; x < Utils.FieldWidth; x++)
+        {
+            PlacePiece(5, (x, pawnRow), direction); // Pawn (PiecePrefabs 배열의 5번 인덱스)
+        }
+
+        // 주요 말 배치
+        PlacePiece(4, (0, mainRow), direction); // Rook
+        PlacePiece(4, (7, mainRow), direction); // Rook
+        PlacePiece(3, (1, mainRow), direction); // Knight
+        PlacePiece(3, (6, mainRow), direction); // Knight
+        PlacePiece(2, (2, mainRow), direction); // Bishop
+        PlacePiece(2, (5, mainRow), direction); // Bishop
+        PlacePiece(1, (3, mainRow), direction); // Queen
+        PlacePiece(0, (4, mainRow), direction); // King
     }
 
     Piece PlacePiece(int pieceType, (int, int) pos, int direction)
     {
-        // Piece를 배치 후, initialize
-        // PiecePrefabs의 원소를 사용하여 배치, PieceParent의 자식으로 생성
-        // Pieces를 채움
-        // 배치한 Piece를 리턴
-        // --- TODO ---
-        
-        // ------
+        // PiecePrefabs의 원소를 사용하여 Piece 생성
+        GameObject pieceObj = Instantiate(PiecePrefabs[pieceType], PieceParent);
+
+        // 생성된 오브젝트에서 Piece 컴포넌트를 가져옴
+        Piece piece = pieceObj.GetComponent<Piece>();
+
+        // Piece 초기화
+        piece.initialize(pos, direction);
+
+        // Pieces 배열에 Piece 저장
+        Pieces[pos.Item1, pos.Item2] = piece;
+
+        // Piece를 반환
+        return piece;
     }
 
     public bool IsValidMove(Piece piece, (int, int) targetPos)
@@ -85,19 +121,34 @@ public class GameManager : MonoBehaviour
     public void Move(Piece piece, (int, int) targetPos)
     {
         if (!IsValidMove(piece, targetPos)) return;
-        
+
+        // 기존 위치의 정보를 비움
+        Pieces[piece.MyPos.Item1, piece.MyPos.Item2] = null;
+
         // 해당 위치에 다른 Piece가 있다면 삭제
-        // Piece를 이동시킴
-        // --- TODO ---
-        
-        // ------
+        if (Pieces[targetPos.Item1, targetPos.Item2] != null)
+        {
+            Destroy(Pieces[targetPos.Item1, targetPos.Item2].gameObject);
+        }
+
+        // Piece를 이동
+        piece.MoveTo(targetPos);
+
+        // 새로운 위치에 저장
+        Pieces[targetPos.Item1, targetPos.Item2] = piece;
+
+        // 턴 변경
+        ChangeTurn();
     }
 
     void ChangeTurn()
     {
-        // 턴을 변경하고, UI에 표시
-        // --- TODO ---
-        
-        // ------
+
+        // 턴을 변경
+        CurrentTurn = (CurrentTurn == 1) ? -1 : 1;
+
+        // UIManager를 통해 턴을 업데이트
+        uiManager.UpdateTurn(CurrentTurn);
     }
+
 }

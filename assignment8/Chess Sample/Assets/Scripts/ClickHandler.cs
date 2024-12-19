@@ -64,16 +64,23 @@ public class ClickHandler : MonoBehaviour
             var boardPos = GetBoardPosition(mousePosition); // 현재 좌표
 
             // 좌표를 검증함
-            // selectedPiece가 움직일 수 있는지를 확인하고, 이동시킴
-            // 움직일 수 없다면 selectedPiece를 originalPosition으로 이동시킴
+            if (Utils.IsInBoard(boardPos) && gameManager.IsValidMove(selectedPiece, boardPos))
+            {
+                gameManager.Move(selectedPiece, boardPos);
+            }
+            else
+            {
+                selectedPiece.transform.position = originalPosition;
+            }
+
             // effect를 초기화
-            // --- TODO ---
-            
-            // ------
+            gameManager.ClearEffects();
+
             isDragging = false;
             selectedPiece = null;
         }
     }
+
 
     void Update()
     {
